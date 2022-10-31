@@ -1,11 +1,15 @@
 {% extends "application.html" %}
 {% block content %}
-    <h1>新規登録</h1>
-    <form method="POST">
-        <label for="title">題名</label>
-        <input type="text" name="title">
-        <label for="body">本文</label>
-        <input type="text" name="body">
-        <input type="submit" value="新規登録">
-    </form>
+    <div class="post_container">
+        <p class="title">投稿フォーム</p>
+        <form method="POST">
+            <label for="title">題名</label>
+            <input type="text" name="title" class="text">
+            <br>
+            <label for="body">本文</label>
+            <input type="text" name="body" class="text">
+            <br>
+            <input type="submit" value="送信">
+        </form>
+    </div>
 {% endblock %}

@@ -1,4 +1,5 @@
 @import 'tweets/index.css';
+@import 'tweets/new.css';
 * {
     padding: 0;
     margin: 0;
