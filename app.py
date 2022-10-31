@@ -5,8 +5,10 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import datetime
 
+BASE_DIR = os.path.dirname(__file__)
+
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///test.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'db/test.db')
 app.config['SECRET_KEY'] = os.urandom(24)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
