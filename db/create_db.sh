@@ -1,3 +1,3 @@
 #!/bin/sh
 
-python -c "from app import db; db.create_all()"
+python -c "import sys; sys.path.append('../'); from app import db; db.create_all()"
