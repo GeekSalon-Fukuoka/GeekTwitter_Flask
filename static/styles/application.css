@@ -34,7 +34,7 @@ header li {
     margin-right: 40px;
 }
 
-.header-list {
+.header_list {
     display: flex;
     align-items: center;
 }
