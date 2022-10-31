@@ -2,6 +2,7 @@
 {% block content %}
     <h1>投稿一覧</h1>
     <a href="/tweets/new">新規作成画面</a>
+    <a href="/logout" role="button">ログアウト</a>
     {% for tweet in tweets %}
     <div>
         <p><b>{{tweet.title}}</b> {{tweet.body}}</p>
