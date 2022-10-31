@@ -25,6 +25,10 @@ class User(UserMixin, db.Model):
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+@login_manager.unauthorized_handler
+def unauthorized():
+    return redirect('/login')
+
 @app.route('/')
 def top():
     return render_template('top.html')
