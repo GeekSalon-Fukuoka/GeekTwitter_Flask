@@ -96,9 +96,12 @@ def signup():
         password = request.form.get('password')
         # Userのインスタンスを作成
         user = User(username=username, password=generate_password_hash(password, method='sha256'))
-        db.session.add(user)
-        db.session.commit()
-        return redirect('login')
+        if user is not None:
+            db.session.add(user)
+            db.session.commit()
+            return redirect('login')
+        else:
+            return redirect('signup')
     else:
         return render_template('users/signup.html')
 
@@ -109,9 +112,11 @@ def login():
         password = request.form.get('password')
         # Userテーブルからusernameに一致するユーザを取得
         user = User.query.filter_by(username=username).first()
-        if check_password_hash(user.password, password):
-            login_user(user)
-            return redirect('/tweets')
+        if user is not None and check_password_hash(user.password, password):
+                login_user(user)
+                return redirect('/tweets')
+        else:
+            return redirect('login')
     else:
         return render_template('users/login.html')
 
