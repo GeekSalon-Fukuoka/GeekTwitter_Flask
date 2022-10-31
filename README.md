@@ -24,15 +24,21 @@ CRUD搭載＋ログイン機能。
 ```
 
 ## Makefileコマンド
-### DB構築
-基本しなくていいが、`./db`内に作成されない場合
-```zsh
-% make db
-```
 ### DBのリセット
 rails db:resetと似た効果あり。DB削除と作成を行う。
 ```zsh
 % make reset
+```
+
+### DB構築
+基本しなくていいが、`./db`内に作成されない場合
+```zsh
+% make create
+```
+### DB削除
+DBを削除のみしたい場合
+```zsh
+% make clean
 ```
 
 ### Anaconda仮想環境構築
