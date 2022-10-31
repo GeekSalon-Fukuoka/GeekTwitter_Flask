@@ -1,5 +1,5 @@
 # all is Environment creation and Execution
-all: anaconda clean db exe
+all: anaconda clean db
 
 # db:reset
 reset: clean db
