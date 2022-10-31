@@ -5,12 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GeekTwitter</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles/application.css') }}">
 </head>
 <body>
     <header>
         <h1>GeekTwitter</h1>
+        <div class="header_list">
+            <li><a href="/">ホーム</a></li>
+            <li><a href="/tweets/new">新規投稿</a></li>
+        </div>
     </header>
     {% block content %}
     {% endblock %}
+    <footer>
+      <p>Copyright © GeekSalon All Rights Reserved.</p>
+    </footer>
 </body>
 </html>
