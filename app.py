@@ -1,6 +1,6 @@
 from flask import Flask, redirect,render_template, request
 from flask_sqlalchemy import SQLAlchemy
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
+from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
 import datetime
@@ -20,6 +20,7 @@ class Tweet(db.Model):
     body = db.Column(db.String(140), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.datetime.now)
     updated_at = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
 class User(UserMixin, db.Model):
 	id = db.Column(db.Integer, primary_key=True)
@@ -52,7 +53,7 @@ def create():
         title = request.form.get('title')
         body = request.form.get('body')
 
-        tweet = Tweet(title=title,body=body)
+        tweet = Tweet(title=title,body=body,user_id=current_user.id)
         # DBに値を送り保存する
         db.session.add(tweet)
         db.session.commit()
