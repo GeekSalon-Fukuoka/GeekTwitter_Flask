@@ -2,17 +2,17 @@
 all: anaconda clean db
 
 # db:reset
-reset: clean db
+reset: clean create
 
 # db delete
 clean:
 	rm -f ./db/test.db
 
 # db:create
-db:
+create:
 	cd db
-	chmod 764 create_db.sh
-	./create_db.sh
+	chmod 764 ./db/create_db.sh
+	./db/create_db.sh
 
 # 仮想環境構築
 anaconda:
