@@ -1,0 +1,7 @@
+{% extends "application.html" %}
+{% block content %}
+    <h1>詳細</h1>
+    <p><b>{{tweet.title}}</b> {{tweet.body}}</p>
+    <a href="/tweets/{{tweet.id}}/edit">編集</a>
+    <a href="/tweets/{{tweet.id}}/delete">削除</a>
+{% endblock %}

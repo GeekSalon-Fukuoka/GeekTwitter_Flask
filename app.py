@@ -78,6 +78,12 @@ def delete(id):
     db.session.commit()
     return redirect('/tweets')
 
+@app.route('/tweets/<int:id>',methods=['GET'])
+@login_required
+def show(id):
+    tweet = Tweet.query.get(id)
+    return render_template('tweets/show.html',tweet=tweet)
+
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == "POST":

@@ -6,6 +6,7 @@
     {% for tweet in tweets %}
     <div>
         <p><b>{{tweet.title}}</b> {{tweet.body}}</p>
+        <a href="/tweets/{{tweet.id}}">詳細</a>
         <a href="/tweets/{{tweet.id}}/edit">編集</a>
         <a href="/tweets/{{tweet.id}}/delete">削除</a>
     </div>
