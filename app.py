@@ -47,7 +47,7 @@ def create():
         # DBに値を送り保存する
         db.session.add(tweet)
         db.session.commit()
-        return redirect('/')
+        return redirect('/tweets')
     else:
         # GETメソッドの時の処理
         return render_template('tweets/new.html')
@@ -62,7 +62,7 @@ def update(id):
         tweet.title = request.form.get('title')
         tweet.body = request.form.get('body')
         db.session.commit()
-        return redirect('/')
+        return redirect('/tweets')
 
 @app.route('/tweets/<int:id>/delete',methods=['GET'])
 @login_required
@@ -72,7 +72,7 @@ def delete(id):
     db.session.delete(tweet)
     #削除を反映
     db.session.commit()
-    return redirect('/')
+    return redirect('/tweets')
 
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
@@ -104,7 +104,7 @@ def login():
 @login_required
 def logout():
     logout_user()
-    return redirect('login')
+    return redirect('/')
 
 if __name__ == '__main__':
     app.run(debug=True, port="5001")
