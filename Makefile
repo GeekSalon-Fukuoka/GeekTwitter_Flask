@@ -6,8 +6,7 @@ reset: clean db
 
 # db delete
 clean:
-	cd db
-	rm -f test.db
+	rm -f ./db/test.db
 
 # db:create
 db:
