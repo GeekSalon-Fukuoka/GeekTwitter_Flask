@@ -1,15 +1,12 @@
 {% extends "application.html" %}
 {% block content %}
-    <div class="tweet_container">
-        <h1>投稿一覧</h1>
-        <a href="/tweets/new">新規作成画面</a>
-        <a href="/logout" role="button">ログアウト</a>
+    <div class="tweets_container">
+        <h3>投稿一覧</h3>
         {% for tweet in tweets %}
         <div class="tweet">
             <div class="main_box">
                 <div class="left_container">
                     <p><b>{{tweet.title}}</b> {{tweet.body}}</p>
-                    <p><b>{{tweet.created_at}}</b></p>
                 </div>
                 <div class="right_container">
                     <a href="/tweets/{{tweet.id}}">詳細</a>
@@ -17,8 +14,9 @@
                     <a href="/tweets/{{tweet.id}}/delete">削除</a>
                 </div>
             </div>
+            <p class="time">{{ tweet.created_at }}</p>
         </div>
+        {% endfor %}
     </div>
 
-    {% endfor %}
 {% endblock %}
