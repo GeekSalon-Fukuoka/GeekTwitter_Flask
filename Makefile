@@ -1,4 +1,4 @@
-# all is Environment creation and Execution
+# all is Environment creation
 all: anaconda clean db
 
 # db:reset
