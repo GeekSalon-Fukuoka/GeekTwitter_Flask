@@ -1,5 +1,6 @@
-from flask import Flask, redirect,render_template, request
+from flask import Flask, redirect,render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy import exc
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -33,6 +34,7 @@ def load_user(user_id):
 
 @login_manager.unauthorized_handler
 def unauthorized():
+    flash('ログインしてください')
     return redirect('/login')
 
 @app.route('/')
@@ -57,6 +59,7 @@ def create():
         # DBに値を送り保存する
         db.session.add(tweet)
         db.session.commit()
+        flash('投稿しました')
         return redirect('/tweets')
     else:
         # GETメソッドの時の処理
@@ -72,6 +75,7 @@ def update(id):
         tweet.title = request.form.get('title')
         tweet.body = request.form.get('body')
         db.session.commit()
+        flash('投稿を編集しました')
         return redirect('/tweets')
 
 @app.route('/tweets/<int:id>/delete',methods=['GET'])
@@ -82,6 +86,7 @@ def delete(id):
     db.session.delete(tweet)
     #削除を反映
     db.session.commit()
+    flash('投稿を削除しました')
     return redirect('/tweets')
 
 @app.route('/tweets/<int:id>',methods=['GET'])
@@ -98,10 +103,17 @@ def signup():
         # Userのインスタンスを作成
         user = User(username=username, password=generate_password_hash(password, method='sha256'))
         if user is not None:
-            db.session.add(user)
-            db.session.commit()
-            return redirect('login')
+            try:
+                db.session.add(user)
+                db.session.commit()
+                flash('アカウント登録しました！ログインしてください')
+                return redirect('login')
+            except exc.IntegrityError:
+                db.session.rollback()
+                flash('アカウント登録に失敗しました。ユーザ名とパスワードを確認してください')
+                return redirect('signup')
         else:
+            flash('アカウント登録に失敗しました')
             return redirect('signup')
     else:
         return render_template('users/signup.html')
@@ -115,8 +127,10 @@ def login():
         user = User.query.filter_by(username=username).first()
         if user is not None and check_password_hash(user.password, password):
                 login_user(user)
+                flash('ログインしました')
                 return redirect('/tweets')
         else:
+            flash('ユーザ名またはパスワードが間違っています。再入力してください')
             return redirect('login')
     else:
         return render_template('users/login.html')
@@ -125,6 +139,7 @@ def login():
 @login_required
 def logout():
     logout_user()
+    flash('ログアウトしました')
     return redirect('/')
 
 if __name__ == '__main__':

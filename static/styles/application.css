@@ -41,6 +41,16 @@ header li {
     align-items: center;
 }
 
+.flash {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    margin: 1rem 0;
+    padding: 1rem;
+    border: solid 1px black;
+}
+
 footer {
     color: white;
     height: 30px;
