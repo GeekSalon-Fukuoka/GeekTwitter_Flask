@@ -1,23 +1,28 @@
-# all is Environment creation
-all: anaconda clean db
+# all is anaconda env creation
+all: env
+
+# 仮想環境含めた全削除
+clean: deactive delete remove
+
+# 仮想環境構築
+env:
+	conda env create --file geektwitter.yaml
+
+# 仮想環境削除
+remove:
+	conda remove -n gt --all -y
 
 # db:reset
-reset: clean create
-
-# db delete
-clean:
-	rm -f ./db/test.db
+reset: delete create
 
 # db:create
 create:
-	cd db
 	chmod 764 ./db/create_db.sh
 	./db/create_db.sh
 
-# 仮想環境構築
-anaconda:
-	conda env create --file geektwitter.yaml
-	conda activate gt
+# db:delete
+delete:
+	rm -f ./db/test.db
 
 # 実行
 exe:
