@@ -1,7 +1,11 @@
 {% extends "application.html" %}
 {% block content %}
     <a href="/tweets">tweet一覧</a>
-    <a href="/login">ログイン</a>
-    <a href="/signup">サインアップ</a>
+    {% if current_user.id %}
+        <a href="/logout">ログアウト</a>
+    {% else %}
+        <a href="/login">ログイン</a>
+        <a href="/signup">サインアップ</a>
+    {% endif %}
 {% endblock %}
 
