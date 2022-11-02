@@ -41,7 +41,7 @@ def unauthorized():
 def top():
     return render_template('top.html')
 
-@app.route('/tweets', methods=['GET'])
+@app.route('/tweets')
 def index():
     text_input = request.args.get('search')
     if text_input is None or len(text_input) == 0:
