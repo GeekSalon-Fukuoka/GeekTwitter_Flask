@@ -1,6 +1,6 @@
 from flask import Flask, redirect,render_template, request, flash
 from flask_sqlalchemy import SQLAlchemy
-from sqlalchemy import exc
+from sqlalchemy import exc, or_
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 import os
@@ -41,10 +41,13 @@ def unauthorized():
 def top():
     return render_template('top.html')
 
-@app.route('/tweets')
-@login_required
+@app.route('/tweets', methods=['GET'])
 def index():
-    tweets = Tweet.query.all()
+    text_input = request.args.get('search')
+    if text_input is None or len(text_input) == 0:
+        tweets = Tweet.query.all()
+    else:
+        tweets = db.session.query(Tweet).filter(or_(Tweet.body.like(text_input), Tweet.title.like(text_input))).all()
     return render_template('tweets/index.html', tweets=tweets)
 
 @app.route('/tweets/new',methods=['GET','POST'])

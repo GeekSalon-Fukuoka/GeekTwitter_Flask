@@ -1,5 +1,11 @@
 {% extends "application.html" %}
 {% block content %}
+    <div class="search">
+        <form>
+            <input type="text" name="search">
+            <input type="submit" value="検索">
+        </form>
+    </div>
     <div class="tweets_container">
         <h3>投稿一覧</h3>
         {% for tweet in tweets %}
