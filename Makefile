@@ -2,7 +2,7 @@
 all: env
 
 # 仮想環境含めた全削除
-clean: deactive delete remove
+clean: delete remove
 
 # 仮想環境構築
 env:
