@@ -3,14 +3,11 @@ from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import exc, or_
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
 import datetime
-
-BASE_DIR = os.path.dirname(__file__)
+from config import Config
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'db/test.db')
-app.config['SECRET_KEY'] = os.urandom(24)
+app.config.from_object(Config)
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)
