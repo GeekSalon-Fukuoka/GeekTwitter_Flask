@@ -1,12 +1,9 @@
 from flask import  redirect,render_template, request, flash
 from sqlalchemy import exc, or_
-from flask_login import LoginManager, login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.models import User, Tweet
-from __init__ import app, db
-
-login_manager = LoginManager()
-login_manager.init_app(app)
+from __init__ import app, db, login_manager
 
 @login_manager.user_loader
 def load_user(user_id):
