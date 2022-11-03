@@ -1,32 +1,9 @@
-from flask import Flask, redirect,render_template, request, flash
-from flask_sqlalchemy import SQLAlchemy
+from flask import  redirect,render_template, request, flash
 from sqlalchemy import exc, or_
-from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required, current_user
+from flask_login import login_user, logout_user, login_required, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
-import os
-import datetime
-
-BASE_DIR = os.path.dirname(__file__)
-
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(BASE_DIR, 'db/test.db')
-app.config['SECRET_KEY'] = os.urandom(24)
-db = SQLAlchemy(app)
-login_manager = LoginManager()
-login_manager.init_app(app)
-
-class Tweet(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(20), nullable=False)
-    body = db.Column(db.String(140), nullable=False)
-    created_at = db.Column(db.DateTime, default=datetime.datetime.now)
-    updated_at = db.Column(db.DateTime, default=datetime.datetime.now, onupdate=datetime.datetime.now)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
-class User(UserMixin, db.Model):
-	id = db.Column(db.Integer, primary_key=True)
-	username = db.Column(db.String(50), nullable=False, unique=True)
-	password = db.Column(db.String(25))
+from src.models import User, Tweet
+from __init__ import app, db, login_manager
 
 @login_manager.user_loader
 def load_user(user_id):

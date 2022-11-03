@@ -61,7 +61,7 @@ DBを削除のみしたい場合
 #### 仮想環境削除
 ```zsh
 % conda deactivate
-% make clean
+% make remove
 ```
 
 #### 仮想環境有効化・無効化
