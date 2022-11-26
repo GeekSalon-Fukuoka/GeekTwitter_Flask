@@ -64,11 +64,3 @@ DBを削除のみしたい場合
 % make remove
 ```
 
-#### 仮想環境有効化・無効化
-```zsh
-# 有効化
-% make active
-# 無効化
-% make deactive
-```
-
